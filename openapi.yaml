@@ -1,0 +1,5636 @@
+openapi: 3.0.1
+info:
+  description: Display REST API specifications
+  title: Display REST API
+  version: "2.0"
+servers:
+- description: Use this URL to request operations on display-api.
+  url: https://developer.api.us.stg.walmart.com/api-proxy/service/display/api/v1/
+security:
+- auth_token: []
+- consumer_id: []
+- timestamp: []
+- auth_signature: []
+tags:
+- name: Campaign
+- name: Ad Group
+- name: Targeting
+- name: Itemset
+- name: Forecast
+- name: Ad Group Creative Associations
+- name: Itemset Campaign association
+- name: Catalog
+- name: Creatives
+- name: Folder
+- name: Reports
+- name: Audience
+paths:
+  /api/v1/campaigns:
+    post:
+      operationId: createCampaign
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CampaignCreateRequest'
+              type: array
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CampaignResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Create Campaign
+      tags:
+      - Campaign
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Campaign
+    put:
+      operationId: updateCampaign
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CampaignUpdateRequest'
+              type: array
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CampaignResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Update Campaign
+      tags:
+      - Campaign
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Campaign
+  /api/v1/campaigns/action:
+    put:
+      operationId: deliveryStatusActionOnCampaign
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CampaignActionRequest'
+              type: array
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CampaignActionResponse'
+                type: array
+          description: successful operation
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Pause/Resume/Archive/Unarchive Campaign
+      tags:
+      - Campaign
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Campaign
+  /api/v1/campaigns/list:
+    post:
+      operationId: listCampaigns
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignListRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              examples:
+                example-1:
+                  $ref: '#/components/examples/CampaignListResponse'
+                  summary: Campaign List response
+                  value:
+                    totalResults: 1
+                    response:
+                    - campaignId: 1
+                      campaignExtId: 1
+                      name: string
+                      description: string
+                      objective: string
+                      status: string
+                      startDate: string
+                      endDate: string
+                      budgetType: string
+                      deliverySpeed: string
+                      dailyBudget: 0
+                      totalBudget: 0
+                      campaignType: string
+                      creationDate: string
+                      lastUpdatedDate: string
+                      attributesSetOnAdGroupLevel: boolean
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List Campaigns
+      tags:
+      - Campaign
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Campaign
+  /api/v1/adGroups:
+    post:
+      operationId: createAdGroupRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/AdGroupCreateRequest'
+              type: array
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AdGroupCreateUpdateResponse'
+                type: array
+          description: successful operation
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Create AdGroup
+      tags:
+      - Ad Group
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Ad Group
+    put:
+      operationId: updateAdGroupRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/AdGroupRequest'
+              type: array
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AdGroupCreateUpdateResponse'
+                type: array
+          description: successful operation
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Update AdGroup
+      tags:
+      - Ad Group
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Ad Group
+  /api/v1/adGroups/action:
+    put:
+      operationId: deliveryStatusActionOnAdGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/AdGroupActionRequest'
+              type: array
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AdGroupActionResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Pause/Resume/Archive/Unarchive AdGroup
+      tags:
+      - Ad Group
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Ad Group
+  /api/v1/adGroups/list:
+    post:
+      operationId: listAdGroupRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdGroupListRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              examples:
+                example-1:
+                  summary: AdGroupList response with targeting sample
+                  value:
+                    totalResults: 1
+                    response:
+                    - campaignId: 1
+                      adGroupId: 1
+                      adGroupExtId: 1
+                      name: string
+                      status: string
+                      startDate: string
+                      endDate: string
+                      budgetType: string
+                      deliverySpeed: string
+                      dailyBudget: 0.0
+                      totalBudget: 0.0
+                      rateType: string
+                      frequencyCapDay: 0
+                      frequencyCapWeek: 0
+                      frequencyCapMonth: 0
+                      baseBid: 0.0
+                      maxBid: 0.0
+                      targeting:
+                        and:
+                        - behavioral:
+                          - audienceType: RETAIL
+                            attribute: HISTORICAL
+                            id: 1
+                            name: tropicana
+                            mappingType: PRODUCT_CATEGORY
+                          - audienceType: RETAIL
+                            attribute: HISTORICAL
+                            id: 5
+                            name: sprite
+                            mappingType: PRODUCT_FAMILY
+                        - geoTargets:
+                          - id: 2
+                            name: Alabama
+                            locationType: STATE
+                          - id: 3
+                            name: Alaska
+                            locationType: STATE
+                          - id: 10
+                            name: Abbeville
+                            locationType: CITY
+                          - zipCode: "35004"
+                      creationDate: string
+                      lastUpdatedDate: string
+                      attributesSetOnAdGroupLevel: true
+                      creativeRotationMode: OPTIMIZE_PERFORMANCE
+              schema:
+                $ref: '#/components/schemas/AdGroupListResponse'
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List AdGroup
+      tags:
+      - Ad Group
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Ad Group
+  /api/v1/adGroupCreativeAssociations:
+    post:
+      operationId: addCreativeAdgroupAssociation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CreativeAdgroupAssociationRequest'
+              type: array
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                example1:
+                  summary: Item List response success
+                  value:
+                  - advertiserId: 1
+                    adGroupId: 1
+                    creativeId: abcd-1234
+                    urlTracker:
+                    - adUnit: MARQUEE
+                      clickUrlDesktopMWeb: https://www.test.com/search?q=test+url+desktop+mweb
+                      clickUrlApp: https://www.test.com/search?q=test+url+desktop+app
+                      dcmClickUrlDesktopMWeb: https://test.net
+                      dcmClickUrlApp: https://test.net
+                      iasClickUrlDesktopMWeb: https://test.com/abd.jpeg
+                      iasClickUrlApp: https://test.com/def.jpeg
+                      dvClickUrlDesktopMWeb: https://test.com/abd.jpeg
+                      dvClickUrlApp: https://test.com/def.jpeg
+                      desktopMWebTag: https://test.com/abc.js
+                    - adUnit: GALLERY
+                      clickUrlDesktopMWeb: https://www.test.com/search?q=test+url+desktop+mweb
+                      clickUrlApp: https://www.test.com/search?q=test+url+desktop+app
+                      dcmClickUrlDesktopMWeb: https://test.net
+                      dcmClickUrlApp: https://test.net
+                      iasClickUrlDesktopMWeb: https://test.com/abd.jpeg
+                      iasClickUrlApp: https://test.com/def.jpeg
+                      dvClickUrlDesktopMWeb: https://test.com/abd.jpeg
+                      dvClickUrlApp: https://test.com/def.jpeg
+                      desktopMWebTag: https://test.com/abc.js
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeAdGroupAssociationResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Add Adgroup Creative Association
+      tags:
+      - Ad Group Creative Associations
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Ad Group Creative Associations
+    put:
+      operationId: editCreativeAdgroupAssociation
+      requestBody:
+        content:
+          application/json:
+            examples:
+              example1:
+                summary: Item List response success
+                value:
+                - advertiserId: 1
+                  adGroupId: 1
+                  creativeId: abcd-1234
+                  urlTracker:
+                  - adUnit: MARQUEE
+                    clickUrlDesktopMWeb: https://www.test.com/search?q=test+url+desktop+mweb
+                    clickUrlApp: https://www.test.com/search?q=test+url+desktop+app
+                    dcmClickUrlDesktopMWeb: https://test.net
+                    dcmClickUrlApp: https://test.net
+                    iasClickUrlDesktopMWeb: https://test.com/abd.jpeg
+                    iasClickUrlApp: https://test.com/def.jpeg
+                    dvClickUrlDesktopMWeb: https://test.com/abd.jpeg
+                    dvClickUrlApp: https://test.com/def.jpeg
+                    desktopMWebTag: https://test.com/abc.js
+                  - adUnit: GALLERY
+                    clickUrlDesktopMWeb: https://www.test.com/search?q=test+url+desktop+mweb
+                    clickUrlApp: https://www.test.com/search?q=test+url+desktop+app
+                    dcmClickUrlDesktopMWeb: https://test.net
+                    dcmClickUrlApp: https://test.net
+                    iasClickUrlDesktopMWeb: https://test.com/abd.jpeg
+                    iasClickUrlApp: https://test.com/def.jpeg
+                    dvClickUrlDesktopMWeb: https://test.com/abd.jpeg
+                    dvClickUrlApp: https://test.com/def.jpeg
+                    desktopMWebTag: https://test.com/abc.js
+            schema:
+              items:
+                $ref: '#/components/schemas/CreativeAdgroupAssociationRequest'
+              type: array
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeAdGroupAssociationResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Edit Adgroup Creative Association
+      tags:
+      - Ad Group Creative Associations
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Ad Group Creative Associations
+  /api/v1/adGroupCreativeAssociations/list:
+    post:
+      operationId: listCreativeAdGroupAssociation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeAdgroupAssociationGetRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreativeAdGroupAssociationListResponse'
+          description: OK
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List Creative Association
+      tags:
+      - Ad Group Creative Associations
+      x-content-type: application/json
+      x-accepts: '*/*'
+      x-tags:
+      - tag: Ad Group Creative Associations
+  /api/v1/adGroupCreativeAssociations/delete:
+    post:
+      operationId: deleteCreativeAdgroupAssociation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CreativeAdGroupAssociationDeleteRequest'
+              type: array
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeAdGroupAssociationResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Remove Adgroup Creative Association
+      tags:
+      - Ad Group Creative Associations
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Ad Group Creative Associations
+  /api/v1/creatives:
+    post:
+      operationId: createCreative
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeMetadataDto'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Create Creative
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/{creativeId}/preview/{adUnitName}:
+    post:
+      operationId: getCreativePreviewForAdUnit
+      parameters:
+      - in: path
+        name: creativeId
+        required: true
+        schema:
+          format: uuid
+          type: string
+      - in: path
+        name: adUnitName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewAdUnitRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            image/jpeg:
+              schema:
+                format: binary
+                type: string
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Get Creative Preview for AdUnit
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: image/jpeg
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/submit:
+    post:
+      operationId: submitCreative
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeWithCreativeIdRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeStateIdResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Submit Creative
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/submit/status:
+    post:
+      operationId: getCreativeSubmitStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeStateIdRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Check status of submitted creative
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/preview:
+    post:
+      operationId: previewCreative
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeWithCreativeIdRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeStateIdResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Preview Creative
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/previews:
+    post:
+      operationId: listCreativePreviews
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewAdUnitRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreativePreviewsListResp'
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List Creative Previews
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/preview/status:
+    post:
+      operationId: getCreativePreviewStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeStateIdRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Check status of creative preview
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/metadata:
+    post:
+      operationId: getCreativeMetadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeWithCreativeIdRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreativeMetadataResponse'
+          description: Returns creative metadata
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Get metadata for a creative
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: '*/*'
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/list:
+    post:
+      operationId: listCreatives
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeListRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeListResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List Creatives
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/delete:
+    post:
+      operationId: deleteCreative
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeWithCreativeIdRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "204":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Delete Creative
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/clone:
+    post:
+      operationId: cloneCreative
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloneCreativeRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Clone Creative
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/{creativeId}:
+    patch:
+      operationId: patchCreative
+      parameters:
+      - in: path
+        name: creativeId
+        required: true
+        schema:
+          format: uuid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchCreativeMetadataDto'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Patch Creative
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+    put:
+      operationId: updateCreative
+      parameters:
+      - in: path
+        name: creativeId
+        required: true
+        schema:
+          format: uuid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCreativeMetadataDto'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Update Creative
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/restore:
+    put:
+      operationId: restoreCreative
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeWithCreativeIdRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Restore Creative
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/move:
+    put:
+      operationId: moveCreative
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeMoveUpdateRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Move Creative
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/creatives/comments/resolve:
+    put:
+      operationId: resolveCreativeComment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeWithCommentIdRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreativeResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Resolve Creative Comment
+      tags:
+      - Creatives
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/assets/photo:
+    post:
+      operationId: createPhotoAssets
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AssetPhotoCreateRequest'
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AssetPhotoCreateResponse'
+                type: array
+          description: successful operation
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Create Photo Assets
+      tags:
+      - Creatives
+      x-content-type: multipart/form-data
+      x-accepts: application/json
+      x-tags:
+      - tag: Creatives
+  /api/v1/folders:
+    post:
+      operationId: createFolder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderCreateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FolderResponse'
+                type: array
+          description: successful operation
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Create Folder
+      tags:
+      - Folder
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Folder
+  /api/v1/folders/list:
+    post:
+      operationId: listFolders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderListRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FolderListResponse'
+                type: array
+          description: successful operation
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List Folders
+      tags:
+      - Folder
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Folder
+  /api/v1/folders/delete:
+    post:
+      operationId: deleteFolder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderWithFolderIdRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "204":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FolderResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Delete Folder
+      tags:
+      - Folder
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Folder
+  /api/v1/folders/clone:
+    post:
+      operationId: cloneFolder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderWithFolderIdRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FolderResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Clone Folder
+      tags:
+      - Folder
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Folder
+  /api/v1/folders/{folderId}:
+    put:
+      operationId: updateFolder
+      parameters:
+      - in: path
+        name: folderId
+        required: true
+        schema:
+          format: uuid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderUpdateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FolderResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Update Folder
+      tags:
+      - Folder
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Folder
+  /api/v1/folders/restore:
+    put:
+      operationId: restoreFolder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderWithFolderIdRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FolderResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Restore Folder
+      tags:
+      - Folder
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Folder
+  /api/v1/folders/move:
+    put:
+      operationId: moveFolder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderMoveUpdateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FolderResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Move Folder
+      tags:
+      - Folder
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Folder
+  /api/v1/reachEstimate:
+    post:
+      operationId: reachEstimate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReachEstimateRequestModel'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          description: successful operation
+        "500":
+          content:
+            application/json:
+              examples:
+                example1:
+                  summary: Item List response success
+                  value:
+                    advertiserId: 1
+                    campaignId: 979
+                    adGroupId: 238
+                    metric:
+                    - impressions
+                    startDate: 2024-06-27T00:00:00Z
+                    endDate: 2024-12-30T23:59:59Z
+                    targeting:
+                      and:
+                      - runOfSite: true
+                      - geoTargets:
+                        - id: 247796189
+                    maxBid: 10
+                    baseBid: 2
+                    frequencyCapDay: 50
+                    frequencyCapWeek: 50
+                    frequencyCapMonth: 50
+                    dailyBudget: 100
+                    totalBudget: 100
+                    deliverySpeed: string
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReachEstimateResponseModal'
+                type: array
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Reach Estimate
+      tags:
+      - Forecast
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Forecast
+  /api/v1/deliveryEstimate:
+    post:
+      operationId: deliveryEstimate
+      requestBody:
+        content:
+          application/json:
+            examples:
+              example1:
+                summary: Item List response success
+                value:
+                  advertiserId: 16273802
+                  campaignId: 90279
+                  adGroupId: 219338
+                  metric:
+                  - impressions
+                  startDate: 2024-06-27T00:00:00Z
+                  endDate: 2024-12-30T23:59:59Z
+                  targeting:
+                    and:
+                    - runOfSite: true
+                    - geoTargets:
+                      - id: 247796189
+                  maxBid: 10
+                  baseBid: 2
+                  frequencyCapDay: 50
+                  frequencyCapWeek: 50
+                  frequencyCapMonth: 50
+                  dailyBudget: 100
+                  totalBudget: 100
+                  deliverySpeed: string
+            schema:
+              $ref: '#/components/schemas/DeliveryEstimateRequestModel'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReachEstimateResponseModal'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Delivery Estimate
+      tags:
+      - Forecast
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Forecast
+  /api/v1/keywords/list:
+    post:
+      operationId: listKeywordTargeting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KeywordTargetingRequestModel'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeywordTargetingResponseModel'
+          description: successful operation
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List KeywordTargeting
+      tags:
+      - Targeting
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Targeting
+  /api/v1/geoLocations/list:
+    post:
+      operationId: listGeoTargeting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeoTargetingRequestModel'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoTargetingResponseModel'
+          description: successful operation
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List GeoTargeting
+      tags:
+      - Targeting
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Targeting
+  /api/v1/targeting/list:
+    post:
+      operationId: listTargeting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetingRequestModel'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetingResponseModel'
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List Targeting
+      tags:
+      - Targeting
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Targeting
+  /api/v2/targeting/list:
+    post:
+      operationId: listTargetingV2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetingRequestModel'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                example1:
+                  summary: "Targeting List V2 With Filter[tactic] : behavioral"
+                  value:
+                    totalResults: 1
+                    behavioral:
+                    - id: 1
+                      name: bagels
+                      taxonPath: food
+                      isDisabled: true
+                      audienceType: RETAIL
+                      attribute: HISTORICAL
+                example2:
+                  summary: "Targeting List V2 With Filter[tactic] : contextual"
+                  value:
+                    totalResults: 3
+                    contextual:
+                    - id: 1
+                      name: food & beverages
+                      taxonPath: food & beverages
+                      reach: []
+                      isDisabled: false
+                    - id: 2
+                      name: bakery
+                      taxonPath: food & beverages|bakery
+                      reach: []
+                      isDisabled: true
+                    - id: 3
+                      name: cakes
+                      taxonPath: food & beverages|bakery|cakes
+                      reach:
+                      - TIER_1
+                      - TIER_2
+                      - TIER_3
+                      - TIER_4
+                      - TIER_5
+                      - TIER_6
+                      - TIER_7
+                      isDisabled: false
+              schema:
+                $ref: '#/components/schemas/TargetingResponseModelV2'
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List Targeting V2
+      tags:
+      - Targeting
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Targeting
+  /api/v1/itemsetAssociation:
+    post:
+      operationId: addOrRemoveItemsetCampaignAssociation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ItemSetAssociationRequest'
+              type: array
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ItemSetAssociationResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Add/Remove Itemset to Campaign
+      tags:
+      - Itemset Campaign association
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Itemset Campaign association
+  /api/v1/itemsetAssociations/list:
+    post:
+      operationId: listItemsetCampaignAssociations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemsetAssociationListRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ItemsetAssociationListResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Add ItemSet to Campaign
+      tags:
+      - Itemset Campaign association
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Itemset Campaign association
+  /api/v1/itemset:
+    post:
+      operationId: createItemset
+      requestBody:
+        content:
+          application/json:
+            examples:
+              example1:
+                summary: Create Itemset request with Brand list
+                value:
+                - advertiserId: 12345
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: BRAND
+                  class: MEASUREMENT
+                  brands:
+                  - gerber
+                  - onesies
+              example2:
+                summary: Create Itemset request with Item list
+                value:
+                - advertiserId: 12345
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: ITEM
+                  class: TARGETING
+                  items:
+                  - id: "77898"
+                    itemType: STORES
+                  - id: "88976"
+                    itemType: ONLINE
+              example3:
+                summary: Create Itemset request with Brand Type Expression
+                value:
+                - advertiserId: 12345
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: BRAND
+                  class: TARGETING
+                  expression:
+                    or:
+                    - type: brand
+                      value:
+                        name: gerber
+                    - type: brand
+                      value:
+                        name: onesies
+              example4:
+                summary: Create Itemset request with Category Type Expression
+                value:
+                - advertiserId: 12345
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: CATEGORY
+                  class: TARGETING
+                  expression:
+                    or:
+                    - type: category
+                      value:
+                        name: "Cameras, Photography & Optics"
+                        attributes:
+                        - type: age_group
+                          values:
+                          - Infant
+                          - toddler
+                        - type: skin_type
+                          values:
+                          - all
+                          - sensitive
+                    - type: category
+                      value:
+                        name: Toys & Games
+                        level: 1
+              example5:
+                summary: Create Itemset request with Items Type Expression
+                value:
+                - advertiserId: 12345
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: ITEM
+                  class: MEASUREMENT
+                  expression:
+                    or:
+                    - type: item
+                      value:
+                        itemId: "226794098"
+                        itemType: STORES
+                    - type: item
+                      value:
+                        itemId: "457099354"
+                        itemType: ONLINE
+              example6:
+                summary: Create Itemset request with Hybrid Type Expression
+                value:
+                - advertiserId: 12345
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: HYBRID
+                  class: TARGETING
+                  expression:
+                    or:
+                    - type: item
+                      value:
+                        itemId: "226794098"
+                        itemType: STORES
+                    - type: brand
+                      value:
+                        name: gerber
+                    - type: category
+                      value:
+                        name: "Cameras, Photography & Optics"
+                        attributes:
+                        - type: age_group
+                          values:
+                          - Infant
+                          - toddler
+                        - type: skin_type
+                          values:
+                          - all
+                          - sensitive
+            schema:
+              items:
+                $ref: '#/components/schemas/ItemsetCreateRequest'
+              type: array
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ItemsetResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Create an Itemset
+      tags:
+      - Itemset
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Itemset
+    put:
+      operationId: updateItemset
+      requestBody:
+        content:
+          application/json:
+            examples:
+              example1:
+                summary: Update Itemset request with Brand list
+                value:
+                - advertiserId: 12345
+                  itemsetId: 44556677
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: BRAND
+                  brands:
+                  - gerber
+                  - onesies
+              example2:
+                summary: Update Itemset request with Item list
+                value:
+                - advertiserId: 12345
+                  itemsetId: 44556677
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: ITEM
+                  items:
+                  - id: "77898"
+                    itemType: STORES
+                  - id: "88976"
+                    itemType: ONLINE
+              example3:
+                summary: Update Itemset request with Brand Type Expression
+                value:
+                - advertiserId: 12345
+                  itemsetId: 44556677
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: BRAND
+                  expression:
+                    or:
+                    - type: brand
+                      value:
+                        name: gerber
+                    - type: brand
+                      value:
+                        name: onesies
+              example4:
+                summary: Update Itemset request with Category Type Expression
+                value:
+                - advertiserId: 12345
+                  itemsetId: 44556677
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: CATEGORY
+                  expression:
+                    or:
+                    - type: category
+                      value:
+                        name: "Cameras, Photography & Optics"
+                        attributes:
+                        - type: age_group
+                          values:
+                          - Infant
+                          - toddler
+                        - type: skin_type
+                          values:
+                          - all
+                          - sensitive
+                    - type: category
+                      value:
+                        name: Toys & Games
+                        level: 1
+              example5:
+                summary: Update Itemset request with Items Type Expression
+                value:
+                - advertiserId: 12345
+                  itemsetId: 44556677
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: ITEM
+                  class: TARGETING
+                  expression:
+                    or:
+                    - type: item
+                      value:
+                        itemId: "226794098"
+                        itemType: STORES
+                    - type: item
+                      value:
+                        itemId: "457099354"
+                        itemType: ONLINE
+              example6:
+                summary: Update Itemset request with Hybrid Type Expression
+                value:
+                - advertiserId: 12345
+                  itemsetId: 44556677
+                  name: dummy itemset name
+                  description: created dummy itemset
+                  type: HYBRID
+                  expression:
+                    or:
+                    - type: item
+                      value:
+                        itemId: "226794098"
+                        itemType: STORES
+                    - type: brand
+                      value:
+                        name: gerber
+                    - type: category
+                      value:
+                        name: "Cameras, Photography & Optics"
+                        attributes:
+                        - type: age_group
+                          values:
+                          - Infant
+                          - toddler
+                        - type: skin_type
+                          values:
+                          - all
+                          - sensitive
+            schema:
+              items:
+                $ref: '#/components/schemas/ItemsetUpdateRequest'
+              type: array
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ItemsetResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Update an Itemset
+      tags:
+      - Itemset
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Itemset
+  /api/v1/itemset/info:
+    post:
+      operationId: listItemsAndBrandsOfItemset
+      requestBody:
+        content:
+          application/json:
+            examples:
+              example1:
+                summary: Itemset info request
+                value:
+                  advertiserId: 12345
+                  Filter[itemsetId]: 445566
+                  startIndex: 0
+                  count: 20
+                  showItems: true
+            schema:
+              $ref: '#/components/schemas/ItemsetInfoRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                example1:
+                  summary: Itemset info response for brand itemset
+                  value:
+                    code: success
+                    itemsetId: 44556677
+                    totalResults: 4
+                    brands:
+                    - name: gerber
+                    - name: onesies
+                    - name: lays
+                    - name: jergens
+                example2:
+                  summary: Itemset info response for brand itemset having showItems
+                    as True or other itemset type
+                  value:
+                    code: success
+                    itemsetId: 334455
+                    totalResults: 2
+                    items:
+                    - name: Play Day Activity Desk
+                      gtin: "45345345"
+                    - name: "Fresh Food Concepts Cheddar Bacon Dip, 12 Oz."
+                      gtin: "45345344"
+              schema:
+                items:
+                  $ref: '#/components/schemas/ItemsetInfoResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List Items and Brands of an Itemsets
+      tags:
+      - Itemset
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Itemset
+  /api/v1/itemset/expression:
+    post:
+      operationId: itemsetExpressionInfo
+      requestBody:
+        content:
+          application/json:
+            examples:
+              example1:
+                summary: Itemset expression info request
+                value:
+                  advertiserId: 123456
+                  Filter[itemsetId]: 44556677
+            schema:
+              $ref: '#/components/schemas/ItemsetExpressionRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                example1:
+                  summary: Itemset expression info response
+                  value:
+                    code: success
+                    expression:
+                      or:
+                      - type: CATEGORY
+                        value:
+                          name: "Cameras, Photography & Optics"
+                          attributes:
+                          - type: age_group
+                            values:
+                            - Infant
+                            - toddler
+                          - type: skin_type
+                            values:
+                            - all
+                            - sensitive
+                            - testing-1202025-004
+                      - type: BRAND
+                        value:
+                          name: gerber
+                      - type: ITEMSET
+                        value:
+                          id: 44556678
+                          version: 2027-11-21_052749
+                    itemsetId: 44556677
+              schema:
+                items:
+                  $ref: '#/components/schemas/ItemsetExpressionResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Itemset Expression
+      tags:
+      - Itemset
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Itemset
+  /api/v1/itemsets/list:
+    post:
+      operationId: listItemsetsMetadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemsetListRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              examples:
+                example1:
+                  summary: Itemset List response with built status
+                  value:
+                    code: success
+                    totalResults: 1
+                    itemsets:
+                    - itemsetId: 234
+                      name: string
+                      status: BUILT
+                      class: MEASUREMENT
+                      editable: "true"
+                      creationDate: string
+                      lastUpdatedDate: string
+                      description: string
+                      source: INTERNAL
+              schema:
+                items:
+                  $ref: '#/components/schemas/ItemsetListResponse'
+                type: array
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List Advertiser Owned Itemsets Metadata
+      tags:
+      - Itemset
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Itemset
+  /api/v1/snapshot/report:
+    post:
+      operationId: createReportAPIRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportAPIRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotResponse'
+          description: successful operation
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Submit Report Snapshot Request
+      tags:
+      - Reports
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Reports
+  /api/v1/snapshot/entity:
+    post:
+      operationId: createEntityAPIRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityAPIRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "500":
+          description: Internal Error
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotResponse'
+          description: successful operation
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Submit Entity Snapshot Request
+      tags:
+      - Reports
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Reports
+  /api/v1/snapshot:
+    get:
+      operationId: getAPIRequest
+      parameters:
+      - description: Advertiser Id
+        in: query
+        name: advertiserId
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - description: Snapshot Id
+        in: query
+        name: snapshotId
+        required: true
+        schema:
+          type: string
+      responses:
+        "400":
+          description: Invalid id supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotResponse'
+          description: successful operation
+        "404":
+          description: API Request not found
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Get the snapshot by Snapshot Id
+      tags:
+      - Reports
+      x-accepts: application/json
+      x-tags:
+      - tag: Reports
+  /api/v1/latestReportDate:
+    get:
+      operationId: getLatestReportAvailability
+      parameters:
+      - description: Advertiser Id
+        in: query
+        name: advertiserId
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LatestUpdatedDateResponse'
+          description: OK
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Get Latest Report Availability Date
+      tags:
+      - Reports
+      x-accepts: '*/*'
+      x-tags:
+      - tag: Reports
+  /api/v1/items/list:
+    post:
+      description: |
+        This request to get the list of items available to user to build an itemset through an API.
+      operationId: getItemList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemListRequest'
+        required: true
+      responses:
+        "500":
+          description: Internal Error
+        "200":
+          content:
+            application/json:
+              examples:
+                example1:
+                  summary: Item List response success
+                  value:
+                    code: success
+                    totalResults: 1
+                    data:
+                    - itemId: 13323
+                      catalog: ONLINE
+                      gtin: "0005"
+                      itemName: itemName
+                      imageUrl: https://walmartimages.com/
+                      itemPageUrl: https://www.walmart.com/
+                      brandName: Books
+                      department: Books
+                      category: Books
+                      subCategory: Books
+              schema:
+                items:
+                  $ref: '#/components/schemas/ItemListResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Get List Of Items
+      tags:
+      - Catalog
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Catalog
+  /api/v1/brand/list:
+    post:
+      description: |
+        This request to get the list of brands available to user through an API.
+      operationId: listBrand
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandListRequest'
+        required: true
+      responses:
+        "500":
+          description: Internal Error
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BrandListResponse'
+                type: array
+          description: successful operation
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Get List Of Brands
+      tags:
+      - Catalog
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Catalog
+  /api/v1/taxonomies/list:
+    post:
+      description: This request to get the list of taxonomies available to user through
+        an API.
+      operationId: getTaxonomiesList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaxonomiesRequest'
+        required: true
+      responses:
+        "500":
+          description: Internal Error
+        "200":
+          content:
+            application/json:
+              examples:
+                example1:
+                  summary: Taxonomies List level- 1
+                  value:
+                    code: success
+                    totalResults: 26
+                    data:
+                    - level: 1
+                      name: Tools
+                      attributes:
+                        type: skin_color
+                        values:
+                        - value: good
+                          count: 1
+                        - value: bad
+                          count: 3
+                      itemCount: 290
+                    - level: 1
+                      name: Electronics
+                      itemCount: 70
+                    - level: 1
+                      name: Vehicles
+                      itemCount: 55
+                example2:
+                  summary: Taxonomies List level- 2
+                  value:
+                    code: success
+                    totalResults: 60
+                    data:
+                    - level: 1
+                      name: Office & Stationery
+                      attributes:
+                        type: age_number
+                        values:
+                        - value: ' old'
+                          count: 2
+                        - value: young
+                          count: 12
+                      taxonomies:
+                        level: 2
+                        name: Tape & Adhesives
+                        attributes:
+                          type: age_number
+                          values:
+                          - value: ' old'
+                            count: 2
+                          - value: young
+                            count: 12
+                        itemCount: 986
+                    - level: 1
+                      name: Office & Stationery
+                      taxonomies:
+                        level: 2
+                        name: Filing & Storage
+                        itemCount: 138
+                    - level: 1
+                      name: Office & Stationery
+                      taxonomies:
+                        level: 2
+                        name: Desk Accessories
+                        itemCount: 323
+                example3:
+                  summary: Taxonomies List level- 3
+                  value:
+                    code: success
+                    totalResults: 2
+                    data:
+                    - level: 1
+                      name: "Clothing, Shoes & Accessories"
+                      attributes:
+                        type: height_type
+                        values:
+                        - value: ' short'
+                          count: 2
+                      taxonomies:
+                        level: 2
+                        name: Carried Fashion Accessories
+                        attributes:
+                          type: height_type
+                          values:
+                          - value: ' short'
+                            count: 2
+                        taxonomies:
+                          level: 3
+                          name: Handbags
+                          attributes:
+                            type: height_type
+                            values:
+                            - value: ' short'
+                              count: 2
+                          itemCount: 168
+                    - level: 1
+                      name: "Clothing, Shoes & Accessories"
+                      taxonomies:
+                        level: 2
+                        name: Carried Fashion Accessories
+                        taxonomies:
+                          level: 3
+                          name: Keychains
+                          itemCount: 152
+                example4:
+                  summary: Taxonomies List category and Level =1 response
+                  value:
+                    code: success
+                    totalResults: 1546
+                    data:
+                    - level: 1
+                      name: x
+                      itemCount: 247628
+              schema:
+                items:
+                  $ref: '#/components/schemas/TaxonomiesResponse'
+                type: array
+          description: successful operation
+        "400":
+          description: Invalid request parameters supplied
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Get List Of Taxonomies
+      tags:
+      - Catalog
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Catalog
+  /api/v1/audiences/list:
+    post:
+      operationId: listAudiences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AudienceListRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              examples:
+                example1:
+                  summary: List Audience Response - rule based
+                  value:
+                    totalResults: 1
+                    response:
+                    - audienceId: 1004116999
+                      audienceType: CUSTOM
+                      attribute: RULE_BASED
+                      name: partner-audience-creation-test
+                      status: IN_PROGRESS
+                      creationDate: 2025-02-08T06:18:22.394Z
+                      lastUpdatedDate: 2025-02-08T06:18:40.739Z
+                      statusDescription: Audience build and data upload are in progress
+                      description: Audience build and data upload are in progress
+                      source: WMC
+                      audienceDefinition:
+                        audienceCriteria:
+                          include:
+                            purchaseCriteria:
+                              purchaseStartOffsetDays: 182
+                              purchaseEndOffsetDays: 0
+                              purchaseChannel: OMNI
+                              purchaseFrequency: 1
+                              itemsetIds:
+                              - 10000063
+                            browseCriteria:
+                              userActivityType: BROWSE
+                              userActivityStartOffsetDays: 182
+                              userActivityEndOffsetDays: 0
+                              userActivityPlatforms:
+                              - BROWSER
+                              userActivityFrequency: 1
+                              itemsetIds:
+                              - 10000063
+                          exclude:
+                            purchaseCriteria:
+                              purchaseStartOffsetDays: 182
+                              purchaseEndOffsetDays: 0
+                              purchaseChannel: ONLINE
+                              purchaseFrequency: 1
+                              itemsetIds:
+                              - 14021736
+                            browseCriteria:
+                              userActivityType: SEARCH
+                              userActivityStartOffsetDays: 182
+                              userActivityEndOffsetDays: 0
+                              userActivityPlatforms:
+                              - BROWSER
+                              userActivityFrequency: 1
+                              itemsetIds:
+                              - 14021736
+                      audienceObjective:
+                      - REACH
+                      audienceObjectiveText: dummy
+                example2:
+                  summary: List Audience Response - item propensity
+                  value:
+                    totalResults: 2
+                    response:
+                    - audienceId: 1004116459
+                      audienceType: CUSTOM
+                      attribute: ITEM_PROPENSITY
+                      name: test
+                      status: IN_PROGRESS
+                      creationDate: 2025-02-08T06:18:22.394Z
+                      lastUpdatedDate: 2025-02-08T06:18:40.739Z
+                      statusDescription: Audience build and data upload are in progress
+                      description: Audience build and data upload are in progress
+                      source: WMC
+                      audienceDefinition:
+                        audienceCriteria:
+                          propensityCriteria:
+                            strategy: PROMOTE_SEASONAL_PRODUCTS
+                            taxonomies:
+                            - subCategory:
+                                name: Baby Car Seat Back Protectors
+                              category:
+                                name: Baby Car Seat Accessories
+                              department:
+                                name: Baby
+                            - subCategory:
+                                name: Baby Car Seat Back Protectors
+                              category:
+                                name: Baby Car Seat Accessories
+                              department:
+                                name: Baby
+                      audienceObjective:
+                      - REACH
+                      audienceObjectiveText: dummy
+                    - audienceId: 1004116446
+                      audienceType: CUSTOM
+                      attribute: ITEM_PROPENSITY
+                      name: test
+                      status: IN_PROGRESS
+                      creationDate: 2025-02-08T06:18:22.394Z
+                      lastUpdatedDate: 2025-02-08T06:18:40.739Z
+                      statusDescription: Audience build and data upload are in progress
+                      description: Audience build and data upload are in progress
+                      source: WMC
+                      audienceDefinition:
+                        audienceCriteria:
+                          propensityCriteria:
+                            strategy: PROMOTE_SEASONAL_PRODUCTS
+                            itemsetIds:
+                            - 14021736
+                      audienceObjective:
+                      - REACH
+                      audienceObjectiveText: dummy
+              schema:
+                $ref: '#/components/schemas/AudienceListResponse'
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: List Audiences
+      tags:
+      - Audience
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Audience
+  /api/v1/audiences:
+    post:
+      operationId: createAudience
+      requestBody:
+        content:
+          application/json:
+            examples:
+              example1:
+                summary: Create Audience Request - rule based
+                value:
+                  name: rb5
+                  description: dsfsd
+                  advertiserId: 16273800
+                  audienceType: BRAND
+                  audienceObjective:
+                  - REACH
+                  - OTHER
+                  audienceObjectiveText: ghjjggjh
+                  audienceDefinition:
+                    audienceCriteria:
+                      include:
+                        purchaseCriteria:
+                          purchaseStartOffsetDays: 182
+                          purchaseEndOffsetDays: 0
+                          purchaseChannel: ONLINE
+                          purchaseFrequency: 1
+                          itemsetIds:
+                          - 14021736
+                        browseCriteria:
+                          userActivityType: SEARCH
+                          userActivityStartOffsetDays: 182
+                          userActivityEndOffsetDays: 0
+                          userActivityPlatforms:
+                          - BROWSER
+                          userActivityFrequency: 1
+                          itemsetIds:
+                          - 14021736
+                      exclude:
+                        purchaseCriteria:
+                          purchaseStartOffsetDays: 182
+                          purchaseEndOffsetDays: 0
+                          purchaseChannel: ACC
+                          purchaseFrequency: 1
+                          itemsetIds:
+                          - 14021736
+                        browseCriteria:
+                          userActivityType: BROWSE
+                          userActivityStartOffsetDays: 182
+                          userActivityEndOffsetDays: 0
+                          userActivityPlatforms:
+                          - IN_APP
+                          userActivityFrequency: 1
+                          itemsetIds:
+                          - 14021736
+                      demographics:
+                        gender:
+                        - M
+                        - F
+                        ageRange:
+                        - min: 35
+                          max: 65
+                        - min: 20
+                          max: -1
+                        income:
+                        - A
+                        - B
+                      geoTargets:
+                      - id: 48010893
+                      - zipcode: "01001"
+                  attribute: RULE_BASED
+              example2:
+                summary: Create Audience Request - item propensity
+                value:
+                  name: sadadsads
+                  description: dcsdfc
+                  advertiserId: 16273800
+                  audienceType: CUSTOM
+                  audienceObjective:
+                  - REACH
+                  audienceObjectiveText: ""
+                  audienceDefinition:
+                    audienceCriteria:
+                      propensityCriteria:
+                        strategy: PROMOTE_SEASONAL_PRODUCTS
+                        taxonomies:
+                        - taxonomyType: PT
+                          subCategory:
+                            name: Baby Car Seat Back Protectors
+                          category:
+                            name: Baby Car Seat Accessories
+                          department:
+                            name: Baby
+                        - taxonomyType: PT
+                          subCategory:
+                            name: Baby Car Seat Back Protectors
+                          category:
+                            name: Baby Car Seat Accessories
+                          department:
+                            name: Baby
+                  attribute: ITEM_PROPENSITY
+            schema:
+              $ref: '#/components/schemas/AudienceCreateRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudienceResponse'
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Create Audience
+      tags:
+      - Audience
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Audience
+    put:
+      operationId: updateAudience
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AudienceUpdateRequest'
+        required: true
+      responses:
+        "400":
+          description: Invalid request parameters supplied
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudienceResponse'
+          description: successful operation
+        "500":
+          description: Internal Error
+      security:
+      - auth_signature: []
+        consumer_id: []
+        auth_token: []
+        timestamp: []
+      summary: Update Audience
+      tags:
+      - Audience
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Audience
+components:
+  examples:
+    CampaignListResponse:
+      value: null
+  schemas:
+    CampaignUpdateRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        campaignId:
+          format: int64
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        objective:
+          enum:
+          - AWARENESS
+          - ENGAGEMENT
+          - CONVERSION
+          - DEFAULT
+          type: string
+        campaignType:
+          enum:
+          - NGD
+          type: string
+        startDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        endDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        budgetType:
+          description: Enum
+          enum:
+          - DAILY
+          - TOTAL
+          type: string
+        dailyBudget:
+          format: double
+          type: number
+        totalBudget:
+          format: double
+          type: number
+        deliverySpeed:
+          enum:
+          - FRONTLOADED
+          - EVENLY
+          type: string
+      required:
+      - advertiserId
+      - campaignId
+      - name
+      type: object
+    CampaignResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        campaignId:
+          format: int64
+          type: integer
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    CampaignCreateRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        objective:
+          default: AWARENESS
+          enum:
+          - AWARENESS
+          - ENGAGEMENT
+          - CONVERSION
+          type: string
+        campaignType:
+          enum:
+          - NGD
+          type: string
+        startDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        endDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        budgetType:
+          enum:
+          - DAILY
+          - TOTAL
+          type: string
+        dailyBudget:
+          format: double
+          type: number
+        totalBudget:
+          format: double
+          type: number
+        deliverySpeed:
+          enum:
+          - FRONTLOADED
+          - EVENLY
+          type: string
+      required:
+      - advertiserId
+      - name
+      type: object
+    CampaignActionRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        action:
+          enum:
+          - PAUSE
+          - RESUME
+          - ARCHIVE
+          - UNARCHIVE
+          type: string
+        campaignId:
+          format: int64
+          type: integer
+      required:
+      - advertiserId
+      - campaignId
+      type: object
+    CampaignActionResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        campaignId:
+          format: int64
+          type: integer
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    CampaignListRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        startIndex:
+          description: return the first ten Campaigns set startIndex=0
+          format: int32
+          type: integer
+        count:
+          description: "to return the first ten Campaigns set startIndex=0 and defaultCount=100,\
+            \ maxCount=100, minCount=1"
+          format: int32
+          type: integer
+        Filter[campaignId]:
+          description: Max List size is 25
+          items:
+            format: int64
+            type: integer
+          type: array
+        Filter[status]:
+          enum:
+          - DRAFT
+          - LIVE
+          - SCHEDULED
+          - PAUSED
+          - COMPLETED
+          - ARCHIVED
+          type: string
+        Filter[name]:
+          items:
+            type: string
+          type: array
+        Filter[lastModifiedDate]:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+      required:
+      - advertiserId
+      type: object
+    AdGroupRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+          writeOnly: true
+        campaignId:
+          format: int64
+          type: integer
+        adGroupId:
+          format: int64
+          type: integer
+        adGroupExtId:
+          format: int64
+          readOnly: true
+          type: integer
+        name:
+          type: string
+        status:
+          type: string
+        startDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        endDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        budgetType:
+          type: string
+        dailyBudget:
+          format: double
+          type: number
+        totalBudget:
+          format: double
+          type: number
+        rateType:
+          enum:
+          - CPM
+          type: string
+        deliverySpeed:
+          enum:
+          - FRONTLOADED
+          - EVENLY
+          type: string
+        creativeRotationMode:
+          enum:
+          - OPTIMIZE_PERFORMANCE
+          - ROTATE_EVENLY
+          type: string
+        frequencyCapDay:
+          format: int32
+          type: integer
+        frequencyCapWeek:
+          format: int32
+          type: integer
+        frequencyCapMonth:
+          format: int32
+          type: integer
+        baseBid:
+          format: double
+          type: number
+        maxBid:
+          format: double
+          type: number
+        creationDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          readOnly: true
+          type: string
+        lastUpdatedDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          readOnly: true
+          type: string
+        targeting:
+          $ref: '#/components/schemas/LogicalExpression'
+      required:
+      - adGroupId
+      - advertiserId
+      - campaignId
+      - name
+      type: object
+    AdGroupCreateUpdateResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        adGroupId:
+          format: int64
+          type: integer
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    AdGroupCreateRequest:
+      properties:
+        campaignId:
+          format: int64
+          type: integer
+        advertiserId:
+          format: int64
+          type: integer
+          writeOnly: true
+        adGroupExtId:
+          format: int64
+          readOnly: true
+          type: integer
+        name:
+          type: string
+        status:
+          type: string
+        startDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        endDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        budgetType:
+          type: string
+        dailyBudget:
+          format: double
+          type: number
+        totalBudget:
+          format: double
+          type: number
+        rateType:
+          enum:
+          - CPM
+          type: string
+        deliverySpeed:
+          enum:
+          - FRONTLOADED
+          - EVENLY
+          type: string
+        creativeRotationMode:
+          enum:
+          - OPTIMIZE_PERFORMANCE
+          - ROTATE_EVENLY
+          type: string
+        frequencyCapDay:
+          format: int32
+          type: integer
+        frequencyCapWeek:
+          format: int32
+          type: integer
+        frequencyCapMonth:
+          format: int32
+          type: integer
+        baseBid:
+          format: double
+          type: number
+        maxBid:
+          format: double
+          type: number
+        creationDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          readOnly: true
+          type: string
+        lastUpdatedDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          readOnly: true
+          type: string
+        targeting:
+          $ref: '#/components/schemas/LogicalExpression'
+      required:
+      - advertiserId
+      - campaignId
+      - name
+      type: object
+    AdGroupActionRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        action:
+          enum:
+          - PAUSE
+          - RESUME
+          - ARCHIVE
+          - UNARCHIVE
+          type: string
+        adGroupId:
+          format: int64
+          type: integer
+      required:
+      - advertiserId
+      type: object
+    AdGroupActionResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        adGroupId:
+          format: int64
+          type: integer
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    AdGroupListRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        campaignId:
+          description: Max List size is 25
+          format: int64
+          type: integer
+        startIndex:
+          format: int32
+          type: integer
+        count:
+          format: int32
+          type: integer
+        Filter[adGroupId]:
+          items:
+            format: int64
+            type: integer
+          type: array
+        Filter[status]:
+          enum:
+          - DRAFT
+          - LIVE
+          - SCHEDULED
+          - PAUSED
+          - COMPLETED
+          - ARCHIVED
+          type: string
+        Filter[name]:
+          items:
+            type: string
+          type: array
+        Filter[lastModifiedDate]:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+      required:
+      - advertiserId
+      type: object
+    AdGroupListResponse:
+      properties:
+        totalResults:
+          format: int32
+          type: integer
+        response:
+          items:
+            $ref: '#/components/schemas/AdGroupRequest'
+          type: array
+      type: object
+    CreativeAdgroupAssociationRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+          writeOnly: true
+        adGroupId:
+          format: int64
+          type: integer
+        creativeId:
+          type: string
+        urlTracker:
+          items:
+            $ref: '#/components/schemas/URLTracker'
+          type: array
+      required:
+      - adGroupId
+      - advertiserId
+      - creativeId
+      type: object
+    CreativeAdGroupAssociationResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        adGroupId:
+          format: int64
+          type: integer
+        creativeId:
+          type: string
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    CreativeAdgroupAssociationGetRequest:
+      properties:
+        startIndex:
+          default: 0
+          format: int32
+          type: integer
+        count:
+          default: 100
+          format: int32
+          type: integer
+        advertiserId:
+          format: int64
+          type: integer
+        Filter[adGroupId]:
+          items:
+            format: int64
+            type: integer
+          type: array
+        Filter[creativeId]:
+          items:
+            type: string
+          type: array
+        Filter[lastModifiedDate]:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+      type: object
+    CreativeAdGroupAssociationListResponse:
+      properties:
+        totalResults:
+          format: int32
+          type: integer
+        response:
+          items:
+            $ref: '#/components/schemas/CreativeAdgroupAssociationGetResponse'
+          type: array
+      type: object
+    CreativeAdGroupAssociationDeleteRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+          writeOnly: true
+        adGroupId:
+          format: int64
+          type: integer
+        creativeId:
+          type: string
+      required:
+      - adGroupId
+      - advertiserId
+      - creativeId
+      type: object
+    CreativeMetadataDto:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        adUnits:
+          $ref: '#/components/schemas/AdUnit'
+      type: object
+    CreativeResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        creativeId:
+          format: uuid
+          type: string
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    PreviewAdUnitRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        type:
+          type: string
+      required:
+      - advertiserId
+      type: object
+    CreativeWithCreativeIdRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        creativeId:
+          format: uuid
+          type: string
+      required:
+      - advertiserId
+      type: object
+    CreativeStateIdResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        creativeStateId:
+          format: uuid
+          type: string
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    CreativeStateIdRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        creativeId:
+          format: uuid
+          type: string
+        creativeStateId:
+          format: uuid
+          type: string
+      required:
+      - advertiserId
+      type: object
+    StatusResponse:
+      properties:
+        response:
+          items:
+            $ref: '#/components/schemas/Status'
+          type: array
+        totalResults:
+          format: int32
+          type: integer
+      type: object
+    CreativePreviewsListResp:
+      properties:
+        response:
+          items:
+            $ref: '#/components/schemas/CreativePreviewsListResponse'
+          type: array
+        totalResults:
+          format: int32
+          type: integer
+      type: object
+    CreativeMetadataResponse:
+      properties:
+        response:
+          items:
+            $ref: '#/components/schemas/CreativeMetadataDto'
+          type: array
+        totalResults:
+          format: int32
+          type: integer
+      type: object
+    CreativeListRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        startIndex:
+          format: int32
+          type: integer
+        count:
+          format: int32
+          type: integer
+        Filter[creativeId]:
+          items:
+            type: string
+          type: array
+        Filter[folderId]:
+          items:
+            type: string
+          type: array
+        Filter[name]:
+          type: string
+        Filter[lastModifiedDate]:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+      required:
+      - advertiserId
+      type: object
+    CreativeListResponse:
+      properties:
+        creativeId:
+          type: string
+        folderId:
+          type: string
+        advertiserId:
+          format: int64
+          type: integer
+        status:
+          enum:
+          - DRAFT
+          - PENDING_APPROVAL
+          - APPROVED
+          - REJECTED
+          type: string
+        link:
+          type: string
+        reviewComments:
+          items:
+            additionalProperties:
+              type: object
+            type: object
+          type: array
+        creationDate:
+          format: date-time
+          readOnly: true
+          type: string
+        lastUpdatedDate:
+          format: date-time
+          readOnly: true
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - CREATIVE
+          - FOLDER
+          type: string
+      type: object
+    CloneCreativeRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        creativeId:
+          format: uuid
+          type: string
+        name:
+          type: string
+      required:
+      - advertiserId
+      type: object
+    UpdateCreativeMetadataDto:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        metadata:
+          $ref: '#/components/schemas/PutCreativeMetadata'
+        adUnits:
+          $ref: '#/components/schemas/AdUnit'
+      required:
+      - advertiserId
+      type: object
+    PatchCreativeMetadataDto:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        metadata:
+          $ref: '#/components/schemas/PatchCreativeMetadata'
+        adUnits:
+          $ref: '#/components/schemas/AdUnit'
+      type: object
+    CreativeMoveUpdateRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        creativeId:
+          format: uuid
+          type: string
+        folderId:
+          format: uuid
+          type: string
+      required:
+      - advertiserId
+      type: object
+    CreativeWithCommentIdRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        creativeId:
+          format: uuid
+          type: string
+        commentId:
+          type: string
+      required:
+      - advertiserId
+      type: object
+    AssetPhotoCreateRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        file:
+          format: binary
+          type: string
+      required:
+      - advertiserId
+      type: object
+    AssetPhotoCreateResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        assetId:
+          type: string
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    FolderCreateRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        name:
+          type: string
+        folderId:
+          format: uuid
+          type: string
+      required:
+      - advertiserId
+      type: object
+    FolderResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        folderId:
+          format: uuid
+          type: string
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    FolderListRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        startIndex:
+          format: int32
+          type: integer
+        count:
+          format: int32
+          type: integer
+        Filter[folderId]:
+          type: string
+        Filter[search]:
+          type: string
+      required:
+      - advertiserId
+      type: object
+    FolderListResponse:
+      properties:
+        folderId:
+          type: string
+        parentFolderId:
+          type: string
+        advertiserId:
+          format: int64
+          type: integer
+        creationDate:
+          format: date-time
+          readOnly: true
+          type: string
+        lastUpdatedDate:
+          format: date-time
+          readOnly: true
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - CREATIVE
+          - FOLDER
+          type: string
+      type: object
+    FolderWithFolderIdRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        folderId:
+          format: uuid
+          type: string
+      required:
+      - advertiserId
+      type: object
+    FolderUpdateRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        name:
+          type: string
+      required:
+      - advertiserId
+      type: object
+    FolderMoveUpdateRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        folderId:
+          format: uuid
+          type: string
+        destinationFolderId:
+          format: uuid
+          type: string
+      required:
+      - advertiserId
+      type: object
+    ReachEstimateRequestModel:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        adGroupId:
+          format: int64
+          type: integer
+        campaignId:
+          format: int64
+          type: integer
+        startDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        endDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        targeting:
+          $ref: '#/components/schemas/LogicalExpression'
+        metric:
+          items:
+            type: string
+          type: array
+      required:
+      - adGroupId
+      - advertiserId
+      - campaignId
+      - metric
+      type: object
+    ReachEstimateResponseModal:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        metric:
+          type: string
+        minValue:
+          format: int64
+          type: integer
+        maxValue:
+          format: int64
+          type: integer
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    DeliveryEstimateRequestModel:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        adGroupId:
+          format: int64
+          type: integer
+        campaignId:
+          format: int64
+          type: integer
+        startDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        endDate:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+        targeting:
+          $ref: '#/components/schemas/LogicalExpression'
+        metric:
+          description: Impressions is the only value supported
+          items:
+            type: string
+          type: array
+        frequencyCapDay:
+          format: int32
+          type: integer
+        frequencyCapWeek:
+          format: int32
+          type: integer
+        frequencyCapMonth:
+          format: int32
+          type: integer
+        baseBid:
+          format: double
+          type: number
+        maxBid:
+          format: double
+          type: number
+        dailyBudget:
+          format: double
+          type: number
+        totalBudget:
+          format: double
+          type: number
+        deliverySpeed:
+          enum:
+          - FRONTLOADED
+          - EVENLY
+          type: string
+      required:
+      - adGroupId
+      - advertiserId
+      - campaignId
+      - metric
+      type: object
+    KeywordTargetingRequestModel:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        startIndex:
+          format: int32
+          type: integer
+        count:
+          format: int32
+          type: integer
+        Filter[adGroupId]:
+          format: int64
+          type: integer
+        Filter[lastModifiedDate]:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+      required:
+      - advertiserId
+      type: object
+    KeywordTargetingResponseModel:
+      properties:
+        totalResults:
+          format: int32
+          type: integer
+        adGroupId:
+          format: int64
+          type: integer
+        keywords:
+          items:
+            $ref: '#/components/schemas/KeywordTargetingModel'
+          type: array
+      type: object
+    GeoTargetingRequestModel:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        searchText:
+          type: string
+        startIndex:
+          format: int32
+          type: integer
+        count:
+          format: int32
+          type: integer
+        Filter[id]:
+          items:
+            format: int64
+            type: integer
+          type: array
+      required:
+      - advertiserId
+      type: object
+    GeoTargetingResponseModel:
+      properties:
+        totalResults:
+          format: int32
+          type: integer
+        geoTargets:
+          items:
+            $ref: '#/components/schemas/GeoTargetingModel'
+          type: array
+      type: object
+    TargetingRequestModel:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        searchText:
+          type: string
+        startIndex:
+          format: int32
+          type: integer
+        count:
+          format: int32
+          type: integer
+        Filter[id]:
+          items:
+            format: int64
+            type: integer
+          type: array
+        Filter[tactic]:
+          enum:
+          - CONTEXTUAL
+          - BEHAVIORAL
+          type: string
+        Filter[audienceType]:
+          type: string
+        Filter[attribute]:
+          type: string
+      required:
+      - advertiserId
+      type: object
+    TargetingResponseModel:
+      properties:
+        totalResults:
+          format: int32
+          type: integer
+        contextual:
+          items:
+            $ref: '#/components/schemas/ContextualTargetingModel'
+          type: array
+        behavioral:
+          items:
+            $ref: '#/components/schemas/BehavioralTargetingModel'
+          type: array
+      type: object
+    TargetingResponseModelV2:
+      properties:
+        totalResults:
+          format: int32
+          type: integer
+        contextual:
+          items:
+            $ref: '#/components/schemas/ContextualTargetingModelV2'
+          type: array
+        behavioral:
+          items:
+            $ref: '#/components/schemas/BehavioralTargetingModelV2'
+          type: array
+      type: object
+    ItemSetAssociationRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        campaignId:
+          format: int64
+          type: integer
+        itemsetId:
+          format: int64
+          type: integer
+        itemsetType:
+          default: FEATURED
+          enum:
+          - FEATURED
+          type: string
+      required:
+      - advertiserId
+      - campaignId
+      type: object
+    ItemSetAssociationResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        campaignId:
+          format: int64
+          type: integer
+        itemsetId:
+          format: int64
+          type: integer
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    ItemsetAssociationListRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        startIndex:
+          default: 0
+          format: int32
+          type: integer
+        count:
+          default: 100
+          description: "optional - to return the 1st ten itemsetAssociations set startIndex=0\
+            \ & defaultCount=100, maxCount=100, minCount=1"
+          format: int32
+          type: integer
+        Filter[campaignId]:
+          items:
+            format: int64
+            maximum: 25
+            type: integer
+          maximum: 25
+          type: array
+        Filter[itemsetId]:
+          items:
+            format: int64
+            maximum: 25
+            type: integer
+          maximum: 25
+          type: array
+      required:
+      - advertiserId
+      type: object
+    ItemsetAssociationListResponse:
+      properties:
+        totalResults:
+          format: int32
+          type: integer
+        associations:
+          items:
+            $ref: '#/components/schemas/ItemsetAssociationGetResponse'
+          type: array
+      type: object
+    ItemsetUpdateRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          enum:
+          - ITEM
+          - BRAND
+          - CATEGORY
+          - HYBRID
+          type: string
+        brands:
+          items:
+            type: string
+          type: array
+        items:
+          items:
+            $ref: '#/components/schemas/Item'
+          type: array
+        expression:
+          $ref: '#/components/schemas/OrGateRequest'
+        editable:
+          type: boolean
+        itemsetId:
+          format: int64
+          type: integer
+      required:
+      - advertiserId
+      - itemsetId
+      - name
+      - type
+      type: object
+    ItemsetResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        itemsetId:
+          format: int64
+          type: integer
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    ItemsetCreateRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          enum:
+          - ITEM
+          - BRAND
+          - CATEGORY
+          - HYBRID
+          type: string
+        brands:
+          items:
+            type: string
+          type: array
+        items:
+          items:
+            $ref: '#/components/schemas/Item'
+          type: array
+        expression:
+          $ref: '#/components/schemas/OrGateRequest'
+        editable:
+          type: boolean
+        class:
+          enum:
+          - MEASUREMENT
+          - TARGETING
+          type: string
+      required:
+      - advertiserId
+      - name
+      - type
+      type: object
+    ItemsetInfoRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        startIndex:
+          default: 0
+          format: int32
+          type: integer
+        count:
+          default: 100
+          format: int32
+          type: integer
+        Filter[itemsetId]:
+          format: int64
+          type: integer
+        showItems:
+          description: "default value is false, if it true it wil show list of items\
+            \ only when itemset is brand type"
+          type: boolean
+      required:
+      - "Filter[itemsetId]"
+      - advertiserId
+      type: object
+    ItemsetInfoResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        itemsetId:
+          format: int64
+          type: integer
+        totalResults:
+          description: Total number of results which satisfy the filtering criteria.
+            This will help to support pagination.
+          format: int32
+          type: integer
+        brands:
+          items:
+            $ref: '#/components/schemas/Brand'
+          type: array
+        items:
+          items:
+            $ref: '#/components/schemas/CatalogItem'
+          type: array
+      type: object
+    ItemsetExpressionRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        Filter[itemsetId]:
+          format: int64
+          type: integer
+      required:
+      - "Filter[itemsetId]"
+      - advertiserId
+      type: object
+    ItemsetExpressionResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          type: string
+        itemsetId:
+          format: int64
+          type: integer
+        expression:
+          $ref: '#/components/schemas/OrGateResponse'
+      type: object
+    ItemsetListRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        startIndex:
+          default: 0
+          format: int32
+          type: integer
+        count:
+          default: 100
+          format: int32
+          type: integer
+        Filter[itemsetId]:
+          items:
+            format: int64
+            maximum: 25
+            type: integer
+          maximum: 25
+          type: array
+        Filter[status]:
+          enum:
+          - BUILDING
+          - BUILT
+          - DRAFT
+          - FAILED
+          - INVALID
+          - PENDING
+          type: string
+        Filter[class]:
+          enum:
+          - MEASUREMENT
+          - TARGETING
+          type: string
+        Filter[lastModifiedDate]:
+          description: "ISO 8601 timezone format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          format: date-time
+          type: string
+      required:
+      - advertiserId
+      type: object
+    ItemsetListResponse:
+      properties:
+        code:
+          type: string
+        totalResults:
+          format: int32
+          type: integer
+        itemsets:
+          items:
+            $ref: '#/components/schemas/ItemsetMetadata'
+          type: array
+      type: object
+    ReportAPIRequest:
+      properties:
+        advertiserId:
+          description: Id of advertiser for which report is to be requested
+          format: int64
+          type: integer
+          writeOnly: true
+        startDate:
+          description: Start Date in format yyyy-MM-dd
+          format: date
+          type: string
+          writeOnly: true
+        endDate:
+          description: End Date in format yyyy-MM-dd
+          format: date
+          type: string
+          writeOnly: true
+        reportType:
+          default: lineItem
+          description: Report Type
+          enum:
+          - campaign
+          - lineItem
+          - tactic
+          - sku
+          - bid
+          - newBuyer
+          type: string
+          writeOnly: true
+        reportMetrics:
+          description: Report Metrics
+          items:
+            description: Report Metrics
+            type: string
+            writeOnly: true
+          type: array
+          writeOnly: true
+        attributionWindow:
+          description: Attribution Window
+          enum:
+          - days14
+          - days30
+          type: string
+          writeOnly: true
+        itemsetType:
+          description: Itemset Type
+          enum:
+          - featured
+          - halo
+          - total
+          type: string
+          writeOnly: true
+        salesChannel:
+          description: Sales Channel
+          enum:
+          - online
+          - stores
+          - acc
+          type: string
+          writeOnly: true
+      required:
+      - advertiserId
+      type: object
+    SnapshotResponse:
+      properties:
+        snapshotId:
+          type: string
+        jobStatus:
+          enum:
+          - pending
+          - processing
+          - done
+          - failed
+          - expired
+          readOnly: true
+          type: string
+        details:
+          readOnly: true
+          type: string
+        code:
+          default: success
+          enum:
+          - success
+          - failure
+          - pending
+          readOnly: true
+          type: string
+      type: object
+    EntityAPIRequest:
+      properties:
+        advertiserId:
+          description: Id of advertiser for which report is to be requested
+          format: int64
+          type: integer
+          writeOnly: true
+        entityStatus:
+          description: Entity Status
+          enum:
+          - active
+          - inactive
+          - all
+          type: string
+          writeOnly: true
+        entityTypes:
+          description: Entity Types
+          enum:
+          - campaign
+          - lineItem
+          type: string
+          writeOnly: true
+      required:
+      - advertiserId
+      - entityStatus
+      - entityTypes
+      type: object
+    LatestUpdatedDateResponse:
+      properties:
+        advertiserId:
+          type: string
+        latestReportDate:
+          type: string
+      required:
+      - advertiserId
+      type: object
+    ItemListRequest:
+      description: |
+        API users can request list of items for an advertiserId using below filters
+      properties:
+        advertiserId:
+          description: Value should be greater than and equal to 0. Default 0.
+          format: int64
+          type: integer
+        startIndex:
+          default: 0
+          description: Value should be greater than 0. Default 100.
+          format: int32
+          type: integer
+        count:
+          default: 100
+          description: The brand identifier.
+          format: int32
+          type: integer
+        isRestricted:
+          default: true
+          description: "filters for brand, category and subCategory are not supported\
+            \ when isRestricted = false"
+          type: boolean
+        filter[itemId]:
+          description: Supported 'exact' match
+          format: int64
+          type: integer
+        filter[itemName]:
+          description: Supported 'LIKE' match
+          type: string
+        filter[catalog]:
+          enum:
+          - ONLINE
+          - STORES
+          - UNIVERSAL
+          type: string
+        filter[gtin]:
+          description: Supported 'EXACT' match
+          type: string
+        filter[department]:
+          description: taxon1_name is department. Supported 'EXACT' match. Case sensitive
+          type: string
+        filter[category]:
+          description: taxon2_name is category. Supported 'EXACT' match. Case sensitive
+          type: string
+        filter[subCategory]:
+          description: taxon3_name is sub-category. Supported 'EXACT' match. Case
+            sensitive
+          type: string
+        filter[brandName]:
+          description: Supported 'EXACT' match
+          type: string
+      required:
+      - advertiserId
+      type: object
+    ItemListResponse:
+      description: List Of Items with details.
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          type: string
+        totalResults:
+          type: integer
+        data:
+          items:
+            $ref: '#/components/schemas/ItemData'
+          type: array
+      type: object
+    BrandListRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        startIndex:
+          default: 0
+          description: Value should be greater than and equal to 0. Default 0.
+          format: int32
+          type: integer
+        count:
+          default: 100
+          description: Value should be greater than 0. Default 100.
+          format: int32
+          type: integer
+        isRestricted:
+          default: true
+          description: "If false, brand name is mandatory."
+          type: boolean
+        filter[brandName]:
+          description: Supported 'EXACT' match
+          type: string
+      required:
+      - advertiserId
+      type: object
+    BrandListResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          type: string
+        totalResults:
+          format: int32
+          type: integer
+        data:
+          items:
+            $ref: '#/components/schemas/Brand_1'
+          type: array
+      type: object
+    TaxonomiesRequest:
+      description: |
+        API users can request list of taxonomies using provided details and filters
+      properties:
+        advertiserId:
+          description: request list of items for an advertiserId
+          format: int64
+          type: integer
+        startIndex:
+          default: 0
+          description: Value should be greater than and equal to 0. Default 0
+          format: int32
+          type: integer
+        count:
+          default: 100
+          description: Value should be greater than 0. Default 100.
+          format: int32
+          type: integer
+        filter[level]:
+          default: 3
+          description: "Acceptable value 1,2,3. Level is used to tell the taxon level\
+            \ to be shown in response"
+          format: int64
+          type: integer
+        filter[brandName]:
+          description: Supported 'EXACT' match
+          type: string
+        filter[department]:
+          description: Supported 'EXACT' match
+          type: string
+        filter[category]:
+          description: Supported 'EXACT' match
+          type: string
+        filter[subCategory]:
+          description: Supported 'EXACT' match
+          type: string
+      required:
+      - advertiserId
+      type: object
+    TaxonomiesResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          type: string
+        totalResults:
+          format: int32
+          type: integer
+        data:
+          items:
+            $ref: '#/components/schemas/Taxonomies'
+          type: array
+      type: object
+    AudienceListRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        startIndex:
+          format: int32
+          type: integer
+        count:
+          format: int32
+          type: integer
+        Filter[audienceId]:
+          items:
+            format: int64
+            type: integer
+          type: array
+        Filter[name]:
+          items:
+            type: string
+          type: array
+        Filter[status]:
+          items:
+            enum:
+            - AVAILABLE
+            - IN_PROGRESS
+            - UNAVAILABLE
+            - ARCHIVED
+            type: string
+          type: array
+      required:
+      - advertiserId
+      type: object
+    AudienceListResponse:
+      properties:
+        totalResults:
+          format: int32
+          type: integer
+        response:
+          items:
+            $ref: '#/components/schemas/AudienceListResponseData'
+          type: array
+      type: object
+    AudienceUpdateRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        audienceId:
+          format: int64
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        audienceType:
+          enum:
+          - CUSTOM
+          - PERSONAL
+          - CATEGORY
+          - BRAND
+          type: string
+        audienceObjective:
+          items:
+            enum:
+            - REACH
+            - PERFORMANCE
+            - OTHER
+            type: string
+          type: array
+        audienceObjectiveText:
+          type: string
+        attribute:
+          enum:
+          - RULED_BASED
+          - ITEM_PROPENSITY
+          type: string
+        audienceDefinition:
+          $ref: '#/components/schemas/AudienceDefinition'
+      type: object
+    AudienceResponse:
+      properties:
+        code:
+          enum:
+          - success
+          - failure
+          - pending
+          type: string
+        audienceId:
+          format: int64
+          type: integer
+        name:
+          type: string
+        details:
+          items:
+            type: string
+          type: array
+      type: object
+    AudienceCreateRequest:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        audienceType:
+          enum:
+          - CUSTOM
+          - PERSONAL
+          - CATEGORY
+          - BRAND
+          type: string
+        audienceObjective:
+          items:
+            enum:
+            - REACH
+            - PERFORMANCE
+            - OTHER
+            type: string
+          type: array
+        audienceObjectiveText:
+          type: string
+        attribute:
+          enum:
+          - RULED_BASED
+          - ITEM_PROPENSITY
+          type: string
+        audienceDefinition:
+          $ref: '#/components/schemas/AudienceDefinition'
+      type: object
+    LogicalExpression:
+      type: object
+    URLTracker:
+      properties:
+        adUnit:
+          enum:
+          - GALLERY
+          - MARQUEE
+          - SKYLINE
+          - BRANDBOX
+          type: string
+        clickUrlDesktopMWeb:
+          type: string
+        clickUrlApp:
+          type: string
+        dcmClickUrlDesktopMWeb:
+          type: string
+        dcmClickUrlApp:
+          type: string
+        iasClickUrlDesktopMWeb:
+          type: string
+        iasClickUrlApp:
+          type: string
+        dvClickUrlDesktopMWeb:
+          type: string
+        dvClickUrlApp:
+          type: string
+        desktopMWebTag:
+          type: string
+      type: object
+    CreativeAdgroupAssociationGetResponse:
+      properties:
+        advertiserId:
+          format: int64
+          type: integer
+        adGroupStatus:
+          type: string
+        creativeStatus:
+          type: string
+        creationDate:
+          type: string
+        lastUpdatedDate:
+          type: string
+        adGroupId:
+          format: int64
+          type: integer
+        creativeId:
+          type: string
+        urlTracker:
+          items:
+            $ref: '#/components/schemas/URLTracker'
+          type: array
+      type: object
+    Metadata:
+      properties:
+        name:
+          type: string
+        folderId:
+          format: uuid
+          type: string
+        templateId:
+          format: int32
+          type: integer
+      type: object
+    AdUnit:
+      properties:
+        headline:
+          type: string
+        subhead:
+          type: string
+        cta:
+          type: string
+        variantId:
+          type: string
+        imageAltText:
+          type: string
+        logoAltText:
+          type: string
+        legalDisclaimerLabel:
+          type: string
+        legalDisclaimerText:
+          type: string
+        legalDisclaimerPopUpCopy:
+          type: string
+        images:
+          items:
+            $ref: '#/components/schemas/Image'
+          type: array
+      type: object
+    Status:
+      properties:
+        status:
+          type: string
+      type: object
+    CreativePreviewsListResponse:
+      properties:
+        adUnitName:
+          type: string
+        previewUrl:
+          type: string
+      type: object
+    PutCreativeMetadata:
+      properties:
+        name:
+          type: string
+        templateId:
+          format: int32
+          type: integer
+      type: object
+    PatchCreativeMetadata:
+      properties:
+        name:
+          type: string
+      type: object
+    KeywordTargetingModel:
+      properties:
+        keywordText:
+          type: string
+        matchType:
+          type: string
+        isExcluded:
+          type: boolean
+        reviewStatus:
+          type: string
+        reviewComments:
+          type: string
+      type: object
+    GeoTargetingModel:
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+        locationType:
+          enum:
+          - ZIP_CODE
+          - STATE
+          - CITY
+          - DMA
+          - COUNTRY
+          type: string
+        parentId:
+          format: int64
+          type: integer
+        parentName:
+          type: string
+        parentType:
+          type: string
+        countryCode:
+          type: string
+      type: object
+    ContextualTargetingModel:
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+        mappingType:
+          enum:
+          - PRODUCT_CATEGORY
+          - PRODUCT_FAMILY
+          - PRODUCT_TYPE
+          - BUFFER_LEVEL_L4
+          type: string
+        reach:
+          items:
+            enum:
+            - tier_1
+            - tier_2
+            - tier_3
+            - tier_4
+            - tier_5
+            - tier_6
+            - tier_7
+            type: string
+          type: array
+        parentId:
+          format: int64
+          type: integer
+        isDisabled:
+          type: boolean
+      type: object
+    BehavioralTargetingModel:
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+        mappingType:
+          enum:
+          - PRODUCT_CATEGORY
+          - PRODUCT_FAMILY
+          - PRODUCT_TYPE
+          - BUFFER_LEVEL_L4
+          type: string
+        parentId:
+          format: int64
+          type: integer
+        wmxId:
+          format: int64
+          type: integer
+          writeOnly: true
+        isDisabled:
+          type: boolean
+        audienceType:
+          enum:
+          - BRAND
+          - RETAIL
+          - CUSTOM
+          - PERSONA
+          type: string
+        attribute:
+          enum:
+          - HISTORICAL
+          - PREDICTIVE
+          - LAPSED_BUYERS
+          - LIFESTYLE
+          - LIFESTAGE
+          type: string
+      type: object
+    ContextualTargetingModelV2:
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+        taxonPath:
+          type: string
+        reach:
+          items:
+            enum:
+            - TIER_1
+            - TIER_2
+            - TIER_3
+            - TIER_4
+            - TIER_5
+            - TIER_6
+            - TIER_7
+            type: string
+          type: array
+        isDisabled:
+          type: boolean
+      type: object
+    BehavioralTargetingModelV2:
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+        taxonPath:
+          type: string
+        isDisabled:
+          type: boolean
+        audienceType:
+          type: string
+        attribute:
+          type: string
+      type: object
+    ItemsetAssociationGetResponse:
+      properties:
+        campaignId:
+          format: int64
+          type: integer
+        itemsetId:
+          format: int64
+          type: integer
+        itemsetType:
+          type: string
+        collection:
+          type: string
+      type: object
+    Item:
+      properties:
+        id:
+          type: string
+        itemType:
+          enum:
+          - GTIN
+          - STORES
+          - ONLINE
+          - UPC
+          type: string
+      required:
+      - id
+      - itemType
+      type: object
+    OrGateRequest:
+      description: supported or logical gate
+      properties:
+        or:
+          description: "this contains list containing combinations of brands, category\
+            \ & itemset objects"
+          items:
+            $ref: '#/components/schemas/OrGateRequest_or_inner'
+          type: array
+      required:
+      - or
+      type: object
+    Brand:
+      description: Brand with Id and Name.
+      properties:
+        name:
+          description: The brand name.
+          type: string
+      required:
+      - name
+      type: object
+    CatalogItem:
+      properties:
+        name:
+          type: string
+        gtin:
+          type: string
+      type: object
+    OrGateResponse:
+      description: supported or logical gate
+      properties:
+        or:
+          description: "this contains list containing combinations of brands, category\
+            \ & Items objects"
+          items:
+            $ref: '#/components/schemas/OrGateResponse_or_inner'
+          type: array
+      required:
+      - or
+      type: object
+    ItemsetMetadata:
+      properties:
+        itemsetId:
+          format: int64
+          type: integer
+        status:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        editable:
+          type: boolean
+        creationDate:
+          format: date-time
+          type: string
+        lastUpdatedDate:
+          format: date-time
+          type: string
+        details:
+          type: string
+        source:
+          type: string
+        class:
+          enum:
+          - MEASUREMENT
+          type: string
+      type: object
+    ItemData:
+      properties:
+        catalog:
+          type: string
+        itemId:
+          format: int64
+          type: integer
+        gtin:
+          type: string
+        itemName:
+          type: string
+        imageUrl:
+          type: string
+        itemPageUrl:
+          type: string
+        brandName:
+          type: string
+        department:
+          type: string
+        category:
+          type: string
+        subCategory:
+          type: string
+      type: object
+    Brand_1:
+      properties:
+        brandName:
+          type: string
+        itemCount:
+          format: int32
+          type: integer
+      type: object
+    Taxonomies:
+      properties:
+        level:
+          type: number
+        name:
+          type: string
+        taxonomies:
+          $ref: '#/components/schemas/Taxonomies_taxonomies'
+      type: object
+    AudienceListResponseData:
+      properties:
+        audienceId:
+          format: int64
+          type: integer
+        audienceType:
+          enum:
+          - CUSTOM
+          - PERSONAL
+          - CATEGORY
+          - BRAND
+          type: string
+        source:
+          type: string
+        attribute:
+          enum:
+          - RULED_BASED
+          - ITEM_PROPENSITY
+          type: string
+        name:
+          type: string
+        size:
+          format: int64
+          type: integer
+        status:
+          type: string
+        statusDescription:
+          type: string
+        creationDate:
+          type: string
+        lastUpdatedDate:
+          enum:
+          - AVAILABLE
+          - IN_PROGRESS
+          - UNAVAILABLE
+          - ARCHIVED
+          type: string
+        description:
+          type: string
+        audienceDefinition:
+          $ref: '#/components/schemas/AudienceDefinition'
+        audienceObjective:
+          items:
+            enum:
+            - REACH
+            - PERFORMANCE
+            - OTHER
+            type: string
+          type: array
+        audienceObjectiveText:
+          type: string
+      type: object
+    AudienceDefinition:
+      properties:
+        audienceCriteria:
+          $ref: '#/components/schemas/AudienceCriteria'
+      type: object
+    Image:
+      properties:
+        name:
+          type: string
+        assetId:
+          format: uuid
+          type: string
+        crop:
+          $ref: '#/components/schemas/Crop'
+      type: object
+    Brand_2:
+      description: brand in itemset expression
+      properties:
+        type:
+          enum:
+          - BRAND
+          type: string
+        value:
+          $ref: '#/components/schemas/Brand_2_value'
+      required:
+      - type
+      - value
+      type: object
+    Category:
+      description: category in itemset expression
+      properties:
+        type:
+          enum:
+          - CATEGORY
+          type: string
+        value:
+          $ref: '#/components/schemas/Category_value'
+      required:
+      - type
+      - value
+      type: object
+    Item_1:
+      description: item in itemset expression
+      properties:
+        type:
+          enum:
+          - ITEM
+          type: string
+        value:
+          $ref: '#/components/schemas/Item_1_value'
+      required:
+      - type
+      - value
+      type: object
+    Itemset:
+      description: itemset in itemset expression
+      properties:
+        type:
+          enum:
+          - ITEMSET
+          type: string
+        value:
+          $ref: '#/components/schemas/Itemset_value'
+      required:
+      - type
+      - value
+      type: object
+    AudienceCriteria:
+      properties:
+        include:
+          $ref: '#/components/schemas/Criteria'
+        exclude:
+          $ref: '#/components/schemas/Criteria'
+        propensityCriteria:
+          $ref: '#/components/schemas/PropensityCriteria'
+        demographics:
+          $ref: '#/components/schemas/Demographics'
+        geoTargets:
+          items:
+            $ref: '#/components/schemas/Location'
+          type: array
+      type: object
+    Crop:
+      properties:
+        focal:
+          $ref: '#/components/schemas/Coordinates'
+        rectangular:
+          $ref: '#/components/schemas/Dimensions'
+      type: object
+    Criteria:
+      properties:
+        purchaseCriteria:
+          $ref: '#/components/schemas/PurchaseCriteria'
+        browseCriteria:
+          $ref: '#/components/schemas/BrowseCriteria'
+      type: object
+    PropensityCriteria:
+      properties:
+        strategy:
+          enum:
+          - IMPROVE_ROAS
+          - PROMOTE_BRAND_NEW_PRODUCTS
+          - PROMOTE_SEASONAL_PRODUCTS
+          type: string
+        itemsetIds:
+          items:
+            format: int64
+            type: integer
+          type: array
+        taxonomies:
+          items:
+            $ref: '#/components/schemas/Taxonomy'
+          type: array
+        preferredSize:
+          $ref: '#/components/schemas/PreferredSize'
+      type: object
+    Demographics:
+      properties:
+        gender:
+          items:
+            enum:
+            - M
+            - F
+            - U
+            type: string
+          type: array
+        income:
+          description: "(U, Unknown), (A, 1000 - 14999), (B, 15000 - 24999), (C, 25000\
+            \ - 34999), (D, 35000 - 49999), (E, 50000 - 74999), (F, 75000 - 99999),\
+            \ (G, 100000 - 124999), (H, 125000 - 149999), (I, 150000 - 174999), (J,\
+            \ 175000 - 199999), (K, 200000 - 249999), (L, 250000+)"
+          items:
+            items:
+              enum:
+              - U
+              - A
+              - B
+              - C
+              - D
+              - E
+              - F
+              - G
+              - H
+              - I
+              - J
+              - K
+              - L
+              type: string
+            type: array
+          type: array
+        ageRange:
+          description: any range of min max is valid
+          items:
+            $ref: '#/components/schemas/AudienceRange'
+          type: array
+      type: object
+    Location:
+      properties:
+        id:
+          format: int64
+          type: integer
+        zipcode:
+          type: string
+      type: object
+    Coordinates:
+      properties:
+        x:
+          format: float
+          type: number
+        "y":
+          format: float
+          type: number
+      type: object
+    Dimensions:
+      properties:
+        x:
+          format: float
+          type: number
+        "y":
+          format: float
+          type: number
+        w:
+          format: int32
+          type: integer
+        h:
+          format: int32
+          type: integer
+      type: object
+    PurchaseCriteria:
+      properties:
+        purchaseStartOffsetDays:
+          format: int32
+          type: integer
+        purchaseEndOffsetDays:
+          format: int32
+          type: integer
+        purchaseChannel:
+          enum:
+          - OMNI
+          - ONLINE
+          - STORE
+          - ACC
+          type: string
+        purchasePercentile:
+          format: int32
+          type: integer
+        purchaseFrequency:
+          format: int32
+          type: integer
+        itemsetIds:
+          items:
+            format: int64
+            type: integer
+          type: array
+      type: object
+    BrowseCriteria:
+      properties:
+        userActivityStartOffsetDays:
+          format: int32
+          type: integer
+        userActivityEndOffsetDays:
+          format: int32
+          type: integer
+        userActivityType:
+          enum:
+          - BROWSE
+          - SEARCH
+          - BROWSE_SEARCH
+          type: string
+        userActivityFrequency:
+          format: int32
+          type: integer
+        itemsetIds:
+          items:
+            format: int64
+            type: integer
+          type: array
+        userActivityPlatforms:
+          items:
+            enum:
+            - BROWSER
+            - IN_APP
+            type: string
+          type: array
+      type: object
+    Taxonomy:
+      properties:
+        taxonomyType:
+          enum:
+          - PT
+          - RHID
+          - HAT
+          type: string
+        department:
+          $ref: '#/components/schemas/Taxon'
+        category:
+          $ref: '#/components/schemas/Taxon'
+        subCategory:
+          $ref: '#/components/schemas/Taxon'
+      type: object
+    PreferredSize:
+      properties:
+        percentageRange:
+          $ref: '#/components/schemas/AudienceRange'
+        limit:
+          format: int64
+          type: integer
+      type: object
+    AudienceRange:
+      properties:
+        min:
+          format: int64
+          type: integer
+        max:
+          format: int64
+          type: integer
+      type: object
+    Taxon:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    OrGateRequest_or_inner:
+      anyOf:
+      - $ref: '#/components/schemas/Brand_2'
+      - $ref: '#/components/schemas/Category'
+      - $ref: '#/components/schemas/Item_1'
+    OrGateResponse_or_inner:
+      anyOf:
+      - $ref: '#/components/schemas/Brand_2'
+      - $ref: '#/components/schemas/Category'
+      - $ref: '#/components/schemas/Itemset'
+    Taxonomies_taxonomies_attributes_values_inner:
+      properties:
+        value:
+          type: string
+        count:
+          type: integer
+      type: object
+    Taxonomies_taxonomies_attributes:
+      properties:
+        type:
+          type: string
+        values:
+          items:
+            $ref: '#/components/schemas/Taxonomies_taxonomies_attributes_values_inner'
+          type: array
+      type: object
+    Taxonomies_taxonomies_taxonomies_taxonomies:
+      properties:
+        level:
+          type: number
+        name:
+          type: string
+        item_count:
+          description: the count corresponds to how many items are there for that
+            node at that level.
+          type: number
+        attributes:
+          $ref: '#/components/schemas/Taxonomies_taxonomies_attributes'
+      type: object
+    Taxonomies_taxonomies_taxonomies:
+      properties:
+        level:
+          type: number
+        name:
+          type: string
+        attributes:
+          $ref: '#/components/schemas/Taxonomies_taxonomies_attributes'
+        taxonomies:
+          $ref: '#/components/schemas/Taxonomies_taxonomies_taxonomies_taxonomies'
+      type: object
+    Taxonomies_taxonomies:
+      properties:
+        level:
+          type: number
+        name:
+          type: string
+        attributes:
+          $ref: '#/components/schemas/Taxonomies_taxonomies_attributes'
+        taxonomies:
+          $ref: '#/components/schemas/Taxonomies_taxonomies_taxonomies'
+      type: object
+    Brand_2_value:
+      description: brand fields
+      properties:
+        name:
+          type: string
+      type: object
+    Category_value_attributes:
+      properties:
+        type:
+          description: attribute name
+          type: string
+        values:
+          items:
+            type: string
+          type: array
+      type: object
+    Category_value:
+      description: category fields
+      properties:
+        name:
+          type: string
+        level:
+          format: int32
+          type: integer
+        attributes:
+          $ref: '#/components/schemas/Category_value_attributes'
+      type: object
+    Item_1_value:
+      description: item field
+      properties:
+        itemId:
+          type: string
+        itemType:
+          enum:
+          - GTIN
+          - ONLINE
+          - STORES
+          - UPC
+          type: string
+      type: object
+    Itemset_value:
+      description: itemset field
+      properties:
+        id:
+          format: int64
+          type: integer
+        version:
+          type: string
+      type: object
+  securitySchemes:
+    auth_signature:
+      in: header
+      name: WM_SEC.AUTH_SIGNATURE
+      type: apiKey
+    consumer_id:
+      in: header
+      name: WM_CONSUMER.ID
+      type: apiKey
+    auth_token:
+      in: query
+      name: Authorization
+      type: apiKey
+    timestamp:
+      in: header
+      name: WM_CONSUMER.intimestamp
+      type: apiKey
